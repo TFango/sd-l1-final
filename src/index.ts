@@ -31,7 +31,10 @@ async function main() {
       console.log(resultadoAdd);
       break;
     case "get":
-      const resultadoGet = await controller.get();
+      const idParam = Number(params._[1]);
+      const resultadoGet = isNaN(idParam)
+        ? await controller.get()
+        : await controller.get({ id: idParam });
       console.log(resultadoGet);
       break;
     case "search":
@@ -42,11 +45,6 @@ async function main() {
       const resultadoSearch = await controller.get({ search: searchParams });
       console.log(resultadoSearch);
       break;
-    case "getById":
-      const resultadoById = await controller.get({ id: params.id });
-      console.log(resultadoById);
-      break;
-
     default:
       const resultadoDefault = await controller.get();
       console.log(resultadoDefault);

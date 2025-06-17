@@ -22,19 +22,18 @@ class PelisController {
     }
 
     if (options?.search) {
+      if (options.search.title && options.search.tag) {
+        return await this.model.search({
+          title: options.search.title,
+          tag: options.search.tag,
+        });
+      }
       if (options.search.title) {
         return await this.model.search({ title: options.search.title });
       }
 
       if (options.search.tag) {
         return await this.model.search({ tag: options.search.tag });
-      }
-
-      if (options.search.title && options.search.tag) {
-        return await this.model.search({
-          title: options.search.title,
-          tag: options.search.tag,
-        });
       }
     }
     return await this.model.getAll();
